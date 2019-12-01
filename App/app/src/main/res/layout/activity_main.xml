@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
+    <!-- Board -->
     <LinearLayout
         android:id="@+id/ChessBoard"
         android:layout_width="wrap_content"
@@ -1230,12 +1230,13 @@
 
     </LinearLayout>
 
+    <!-- Horizontal lines -->
     <View
         android:id="@+id/vertLine1"
         android:layout_width="2dp"
         android:layout_height="375dp"
-        android:layout_marginStart="27dp"
-        android:layout_marginLeft="27dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
         android:layout_marginTop="16dp"
         android:background="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -1245,8 +1246,8 @@
         android:id="@+id/vertLine2"
         android:layout_width="2dp"
         android:layout_height="375dp"
-        android:layout_marginStart="71dp"
-        android:layout_marginLeft="71dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginLeft="45dp"
         android:layout_marginTop="16dp"
         android:background="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -1256,8 +1257,8 @@
         android:id="@+id/vertLine3"
         android:layout_width="2dp"
         android:layout_height="375dp"
-        android:layout_marginStart="116dp"
-        android:layout_marginLeft="116dp"
+        android:layout_marginStart="90dp"
+        android:layout_marginLeft="90dp"
         android:layout_marginTop="16dp"
         android:background="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -1267,8 +1268,8 @@
         android:id="@+id/vertLine4"
         android:layout_width="2dp"
         android:layout_height="375dp"
-        android:layout_marginStart="161dp"
-        android:layout_marginLeft="161dp"
+        android:layout_marginStart="135dp"
+        android:layout_marginLeft="135dp"
         android:layout_marginTop="16dp"
         android:background="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -1278,8 +1279,8 @@
         android:id="@+id/vertLine5"
         android:layout_width="2dp"
         android:layout_height="375dp"
-        android:layout_marginStart="206dp"
-        android:layout_marginLeft="206dp"
+        android:layout_marginStart="180dp"
+        android:layout_marginLeft="180dp"
         android:layout_marginTop="16dp"
         android:background="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -1289,8 +1290,8 @@
         android:id="@+id/vertLine6"
         android:layout_width="2dp"
         android:layout_height="375dp"
-        android:layout_marginStart="251dp"
-        android:layout_marginLeft="251dp"
+        android:layout_marginStart="225dp"
+        android:layout_marginLeft="225dp"
         android:layout_marginTop="16dp"
         android:background="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -1300,8 +1301,8 @@
         android:id="@+id/vertLine7"
         android:layout_width="2dp"
         android:layout_height="375dp"
-        android:layout_marginStart="296dp"
-        android:layout_marginLeft="296dp"
+        android:layout_marginStart="270dp"
+        android:layout_marginLeft="270dp"
         android:layout_marginTop="16dp"
         android:background="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -1311,8 +1312,8 @@
         android:id="@+id/vertLine8"
         android:layout_width="2dp"
         android:layout_height="375dp"
-        android:layout_marginStart="341dp"
-        android:layout_marginLeft="341dp"
+        android:layout_marginStart="315dp"
+        android:layout_marginLeft="315dp"
         android:layout_marginTop="16dp"
         android:background="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -1322,12 +1323,36 @@
         android:id="@+id/vertLine9"
         android:layout_width="2dp"
         android:layout_height="375dp"
-        android:layout_marginStart="386dp"
-        android:layout_marginLeft="386dp"
+        android:layout_marginStart="360dp"
+        android:layout_marginLeft="360dp"
         android:layout_marginTop="16dp"
         android:background="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Buttons -->
+
+    <Button
+        android:id="@+id/ChessSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ChessReset"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/ChessReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reset"
+        app:layout_constraintBottom_toBottomOf="@+id/ChessSubmit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ChessSubmit" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
