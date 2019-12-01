@@ -1079,164 +1079,13 @@
             android:layout_height="2dp"
             android:background="@android:color/black" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/row8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <FrameLayout
-                android:id="@+id/Chess57"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/Chess58"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/Inside57"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@android:color/white" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/Chess58"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/Chess59"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/Chess57"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/Inside58"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@android:color/background_light" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/Chess59"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/Chess60"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/Chess58"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/Inside59"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@android:color/white" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/Chess60"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/Chess61"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/Chess59"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/Inside60"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@android:color/background_light" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/Chess61"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/Chess62"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/Chess60"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/Inside61"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@android:color/white" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/Chess62"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/Chess63"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/Chess61"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/Inside62"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@android:color/background_light" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/Chess63"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/Chess64"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/Chess62"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/Inside63"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@android:color/white" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/Chess64"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/Chess63"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/Inside64"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@android:color/background_light" />
-            </FrameLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:id="@+id/horzLine9"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@android:color/black" />
-
     </LinearLayout>
 
     <!-- Horizontal lines -->
     <View
         android:id="@+id/vertLine1"
         android:layout_width="2dp"
-        android:layout_height="375dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
+        android:layout_height="330dp"
         android:layout_marginTop="16dp"
         android:background="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -1245,7 +1094,7 @@
     <View
         android:id="@+id/vertLine2"
         android:layout_width="2dp"
-        android:layout_height="375dp"
+        android:layout_height="330dp"
         android:layout_marginStart="45dp"
         android:layout_marginLeft="45dp"
         android:layout_marginTop="16dp"
@@ -1256,7 +1105,7 @@
     <View
         android:id="@+id/vertLine3"
         android:layout_width="2dp"
-        android:layout_height="375dp"
+        android:layout_height="330dp"
         android:layout_marginStart="90dp"
         android:layout_marginLeft="90dp"
         android:layout_marginTop="16dp"
@@ -1267,7 +1116,7 @@
     <View
         android:id="@+id/vertLine4"
         android:layout_width="2dp"
-        android:layout_height="375dp"
+        android:layout_height="330dp"
         android:layout_marginStart="135dp"
         android:layout_marginLeft="135dp"
         android:layout_marginTop="16dp"
@@ -1278,7 +1127,7 @@
     <View
         android:id="@+id/vertLine5"
         android:layout_width="2dp"
-        android:layout_height="375dp"
+        android:layout_height="330dp"
         android:layout_marginStart="180dp"
         android:layout_marginLeft="180dp"
         android:layout_marginTop="16dp"
@@ -1289,7 +1138,7 @@
     <View
         android:id="@+id/vertLine6"
         android:layout_width="2dp"
-        android:layout_height="375dp"
+        android:layout_height="330dp"
         android:layout_marginStart="225dp"
         android:layout_marginLeft="225dp"
         android:layout_marginTop="16dp"
@@ -1300,7 +1149,7 @@
     <View
         android:id="@+id/vertLine7"
         android:layout_width="2dp"
-        android:layout_height="375dp"
+        android:layout_height="330dp"
         android:layout_marginStart="270dp"
         android:layout_marginLeft="270dp"
         android:layout_marginTop="16dp"
@@ -1311,7 +1160,7 @@
     <View
         android:id="@+id/vertLine8"
         android:layout_width="2dp"
-        android:layout_height="375dp"
+        android:layout_height="330dp"
         android:layout_marginStart="315dp"
         android:layout_marginLeft="315dp"
         android:layout_marginTop="16dp"
@@ -1322,7 +1171,7 @@
     <View
         android:id="@+id/vertLine9"
         android:layout_width="2dp"
-        android:layout_height="375dp"
+        android:layout_height="330dp"
         android:layout_marginStart="360dp"
         android:layout_marginLeft="360dp"
         android:layout_marginTop="16dp"
@@ -1353,40 +1202,79 @@
         app:layout_constraintStart_toEndOf="@+id/ChessSubmit" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/upArrow"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        app:layout_constraintEnd_toStartOf="@+id/rightArrow"
         app:layout_constraintTop_toBottomOf="@+id/vertLine8"
         app:srcCompat="@drawable/up_arrow" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/leftArrow"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/upArrow"
+        app:layout_constraintTop_toBottomOf="@+id/upArrow"
         app:srcCompat="@drawable/left_arrow" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/downArrow"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView4"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintEnd_toEndOf="@+id/rightArrow"
+        app:layout_constraintStart_toStartOf="@+id/leftArrow"
+        app:layout_constraintTop_toBottomOf="@+id/rightArrow"
         app:srcCompat="@drawable/down_arrow" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/rightArrow"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/upArrow"
         app:srcCompat="@drawable/right_arrow" />
+
+    <ImageView
+        android:id="@+id/twoShip"
+        android:layout_width="90dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vertLine3"
+        app:srcCompat="@drawable/two_ship" />
+
+    <ImageView
+        android:id="@+id/threeShip"
+        android:layout_width="135dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="120dp"
+        android:rotation="90"
+        app:layout_constraintStart_toEndOf="@+id/fiveShip"
+        app:layout_constraintTop_toTopOf="@+id/twoShip"
+        app:srcCompat="@drawable/three_ship" />
+
+    <ImageView
+        android:id="@+id/fourShip"
+        android:layout_width="180dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/twoShip"
+        app:layout_constraintTop_toBottomOf="@+id/twoShip"
+        app:srcCompat="@drawable/four_ship" />
+
+    <ImageView
+        android:id="@+id/fiveShip"
+        android:layout_width="225dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/fourShip"
+        app:layout_constraintTop_toBottomOf="@+id/fourShip"
+        app:srcCompat="@drawable/five_ship" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

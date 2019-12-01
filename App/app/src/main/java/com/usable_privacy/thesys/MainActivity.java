@@ -22,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
     int SelectedPiece;
     String PassedPiece;
     ImageView[] selectablePieces;
-    final int squareSize = 45;
+    final int squareSize = 135;
+    final int lineSize = 2;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -45,9 +46,21 @@ public class MainActivity extends AppCompatActivity {
 //        board[3].getLayoutParams().height = 300;
 
 
+
         board[3].setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+                ImageView temp = new ImageView(getApplicationContext());
+
+                String uri = "@drawable/two_ship";
+
+                int imageResource = getResources().getIdentifier(uri, null, getPackageName());
+                Drawable res = getResources().getDrawable(imageResource);
+                temp.setImageDrawable(res);
+
+                board[3].addView(temp);
+//                Log.d("WilliamButt", "" + board[3].getLayoutParams().width);
+                board[3].getLayoutParams().width = 2 * squareSize;
 
                 return true;
             }
@@ -117,14 +130,14 @@ public class MainActivity extends AppCompatActivity {
         board[53] = findViewById(R.id.Chess54);
         board[54] = findViewById(R.id.Chess55);
         board[55] = findViewById(R.id.Chess56);
-        board[56] = findViewById(R.id.Chess57);
-        board[57] = findViewById(R.id.Chess58);
-        board[58] = findViewById(R.id.Chess59);
-        board[59] = findViewById(R.id.Chess60);
-        board[60] = findViewById(R.id.Chess61);
-        board[61] = findViewById(R.id.Chess62);
-        board[62] = findViewById(R.id.Chess63);
-        board[63] = findViewById(R.id.Chess64);
+//        board[56] = findViewById(R.id.Chess57);
+//        board[57] = findViewById(R.id.Chess58);
+//        board[58] = findViewById(R.id.Chess59);
+//        board[59] = findViewById(R.id.Chess60);
+//        board[60] = findViewById(R.id.Chess61);
+//        board[61] = findViewById(R.id.Chess62);
+//        board[62] = findViewById(R.id.Chess63);
+//        board[63] = findViewById(R.id.Chess64);
 
 //        selectablePieces[0] = findViewById(R.id.BlackPawn);
 //        selectablePieces[1] = findViewById(R.id.BlackBishop);
@@ -141,5 +154,9 @@ public class MainActivity extends AppCompatActivity {
 //        for (int i = 0; i < 12; i++) {
 //            pieces[i] = selectablePieces[i].getDrawable();
 //        }
+    }
+
+    public int getSquareSize(int value){
+        return value * squareSize + (value * 2);
     }
 }
