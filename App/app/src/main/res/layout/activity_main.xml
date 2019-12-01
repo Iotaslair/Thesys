@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <LinearLayout
         android:id="@+id/ChessBoard"
         android:layout_width="wrap_content"
@@ -19,10 +20,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <View
-            android:id="@+id/view1"
+            android:id="@+id/horzLine1"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@android:color/black" />
+            android:background="@android:color/black"
+            app:layout_constraintStart_toStartOf="@id/row1"
+            app:layout_constraintEnd_toEndOf="@id/row1"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/row1"
@@ -39,17 +42,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <View
-                    android:id="@+id/hLine1"
-                    android:layout_width="10dp"
-                    android:layout_height="370dp"
-                    android:background="@android:color/holo_blue_bright" />
-
                 <ImageView
                     android:id="@+id/Inside1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:srcCompat="@android:color/background_light" />
+
             </FrameLayout>
 
             <FrameLayout
@@ -180,10 +178,10 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            android:id="@+id/view2"
+            android:id="@+id/horzLine2"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@android:color/black" />
+            android:background="@android:color/black"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/row2"
@@ -330,10 +328,11 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            android:id="@+id/view3"
+            android:id="@+id/horzLine3"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@android:color/black" />
+            android:background="@android:color/black"
+            app:layout_constraintStart_toStartOf="@id/row1"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/row3"
@@ -479,7 +478,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            android:id="@+id/view4"
+            android:id="@+id/horzLine4"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@android:color/black" />
@@ -628,7 +627,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            android:id="@+id/view5"
+            android:id="@+id/horzLine5"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@android:color/black" />
@@ -777,7 +776,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            android:id="@+id/view6"
+            android:id="@+id/horzLine6"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@android:color/black" />
@@ -926,7 +925,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            android:id="@+id/view7"
+            android:id="@+id/horzLine7"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@android:color/black" />
@@ -1075,7 +1074,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            android:id="@+id/view8"
+            android:id="@+id/horzLine8"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@android:color/black" />
@@ -1224,12 +1223,111 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            android:id="@+id/view9"
+            android:id="@+id/horzLine9"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@android:color/black" />
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/vertLine1"
+        android:layout_width="2dp"
+        android:layout_height="375dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/vertLine2"
+        android:layout_width="2dp"
+        android:layout_height="375dp"
+        android:layout_marginStart="71dp"
+        android:layout_marginLeft="71dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/vertLine3"
+        android:layout_width="2dp"
+        android:layout_height="375dp"
+        android:layout_marginStart="116dp"
+        android:layout_marginLeft="116dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/vertLine4"
+        android:layout_width="2dp"
+        android:layout_height="375dp"
+        android:layout_marginStart="161dp"
+        android:layout_marginLeft="161dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/vertLine5"
+        android:layout_width="2dp"
+        android:layout_height="375dp"
+        android:layout_marginStart="206dp"
+        android:layout_marginLeft="206dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/vertLine6"
+        android:layout_width="2dp"
+        android:layout_height="375dp"
+        android:layout_marginStart="251dp"
+        android:layout_marginLeft="251dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/vertLine7"
+        android:layout_width="2dp"
+        android:layout_height="375dp"
+        android:layout_marginStart="296dp"
+        android:layout_marginLeft="296dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/vertLine8"
+        android:layout_width="2dp"
+        android:layout_height="375dp"
+        android:layout_marginStart="341dp"
+        android:layout_marginLeft="341dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/vertLine9"
+        android:layout_width="2dp"
+        android:layout_height="375dp"
+        android:layout_marginStart="386dp"
+        android:layout_marginLeft="386dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
