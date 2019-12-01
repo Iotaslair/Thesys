@@ -24,8 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@android:color/black"
-            app:layout_constraintStart_toStartOf="@id/row1"
-            app:layout_constraintEnd_toEndOf="@id/row1"/>
+            app:layout_constraintEnd_toEndOf="@id/row1"
+            app:layout_constraintStart_toStartOf="@id/row1" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/row1"
@@ -181,7 +181,7 @@
             android:id="@+id/horzLine2"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@android:color/black"/>
+            android:background="@android:color/black" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/row2"
@@ -332,7 +332,7 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@android:color/black"
-            app:layout_constraintStart_toStartOf="@id/row1"/>
+            app:layout_constraintStart_toStartOf="@id/row1" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/row3"
@@ -1352,7 +1352,41 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/ChessSubmit" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/vertLine8"
+        app:srcCompat="@drawable/up_arrow" />
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:srcCompat="@drawable/left_arrow" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:srcCompat="@drawable/down_arrow" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:srcCompat="@drawable/right_arrow" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

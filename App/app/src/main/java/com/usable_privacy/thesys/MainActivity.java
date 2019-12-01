@@ -32,36 +32,22 @@ public class MainActivity extends AppCompatActivity {
         buildBoard();
 
 
-        ImageView temp = new ImageView(getApplicationContext());
+//        ImageView temp = new ImageView(getApplicationContext());
+//
+//        String uri = "@drawable/arrows";
+//
+//        int imageResource = getResources().getIdentifier(uri, null, getPackageName());
+//        Drawable res = getResources().getDrawable(imageResource);
+//        temp.setImageDrawable(res);
 
-        String uri = "@drawable/arrows";
-
-        int imageResource = getResources().getIdentifier(uri, null, getPackageName());
-        Drawable res = getResources().getDrawable(imageResource);
-        temp.setImageDrawable(res);
-
-        board[3].addView(temp);
-        board[3].getLayoutParams().width = 300;
-        board[3].getLayoutParams().height = 300;
+//        board[3].addView(temp);
+//        board[3].getLayoutParams().width = 300;
+//        board[3].getLayoutParams().height = 300;
 
 
         board[3].setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                int[] location = new int[2];
-                board[3].getLocationOnScreen(location);
-                float value = motionEvent.getAxisValue(MotionEvent.AXIS_X);
-//                Log.d("WilliamButt", "Motion event" + motionEvent.getAxisValue(MotionEvent.AXIS_X));
-                if (value < (board[3].getLayoutParams().width/2)){
-                    Log.d("WilliamButt", "Left");
-                } else if (value > (board[3].getLayoutParams().width/2)) {
-                    Log.d("WilliamButt", "Right");
-                    Log.d("WilliamButt ", "Value " + (value < (board[3].getLayoutParams().width/2)));
-
-                } else {
-                    Log.d("WilliamButt", "Something weird " + (value < (board[3].getLayoutParams().width/2)));
-                }
-
 
                 return true;
             }
