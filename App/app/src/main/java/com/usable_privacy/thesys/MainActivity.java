@@ -2,8 +2,12 @@ package com.usable_privacy.thesys;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -20,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView[] selectablePieces;
     final int squareSize = 45;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,15 +34,39 @@ public class MainActivity extends AppCompatActivity {
 
         ImageView temp = new ImageView(getApplicationContext());
 
-        String uri = "@drawable/sao_swords_picture";
+        String uri = "@drawable/arrows";
 
         int imageResource = getResources().getIdentifier(uri, null, getPackageName());
         Drawable res = getResources().getDrawable(imageResource);
         temp.setImageDrawable(res);
 
         board[3].addView(temp);
-//        board[3].getLayoutParams().width = 200;
-//        board[3].getLayoutParams().height = 1000;
+        board[3].getLayoutParams().width = 300;
+        board[3].getLayoutParams().height = 300;
+
+
+        board[3].setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                int[] location = new int[2];
+                board[3].getLocationOnScreen(location);
+                float value = motionEvent.getAxisValue(MotionEvent.AXIS_X);
+//                Log.d("WilliamButt", "Motion event" + motionEvent.getAxisValue(MotionEvent.AXIS_X));
+                if (value < (board[3].getLayoutParams().width/2)){
+                    Log.d("WilliamButt", "Left");
+                } else if (value > (board[3].getLayoutParams().width/2)) {
+                    Log.d("WilliamButt", "Right");
+                    Log.d("WilliamButt ", "Value " + (value < (board[3].getLayoutParams().width/2)));
+
+                } else {
+                    Log.d("WilliamButt", "Something weird " + (value < (board[3].getLayoutParams().width/2)));
+                }
+
+
+                return true;
+            }
+        });
+
 
     }
 
