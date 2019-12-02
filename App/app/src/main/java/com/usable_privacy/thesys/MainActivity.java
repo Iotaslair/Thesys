@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
     Button submit, reset;
     FrameLayout[] board;
-    //    ChessObject gameBoard;
     boolean shipSelected;
     int selectedShip;
     ImageView[] ships;
@@ -175,7 +176,6 @@ public class MainActivity extends AppCompatActivity {
                                 return false;
                             }
 
-
                             //place start of ship image
                             {
                                 ImageView temp = new ImageView(getApplicationContext());
@@ -204,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
                             selectedShip = -1;
                             shipSelected = false;
                             direction = -1;
+                            resetShipColors();
                             return true;
                         } else {
                             Toast.makeText(getApplicationContext(), "You didn't select a ship", Toast.LENGTH_LONG).show();
@@ -224,14 +225,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Sets up the onTouchListeners for the ships array
+    @SuppressLint("ClickableViewAccessibility")
     private void setupShips() {
         for (int i = 0; i < ships.length; i++) {
             final int finalI = i;
             ships[i].setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
+                    ImageView imageView = (ImageView) view;
+                    if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+
+                        resetShipColors();
+
+                        String ship = "@drawable/";
+                        switch (finalI) {
+                            case 0: {
+                                ship += "full_two_ship";
+                                break;
+                            }
+                            case 1: {
+                                ship += "full_three_ship";
+                                break;
+                            }
+                            case 2: {
+                                ship += "full_four_ship";
+                                break;
+                            }
+                            case 3: {
+                                ship += "full_five_ship";
+                                break;
+                            }
+                        }
+
+                        int imageResource = getResources().getIdentifier(ship, null, getPackageName());
+                        Drawable res = getResources().getDrawable(imageResource);
+                        imageView.setImageDrawable(res);
+                    }
                     shipSelected = true;
                     selectedShip = finalI;
+
                     return true;
                 }
             });
@@ -325,6 +357,33 @@ public class MainActivity extends AppCompatActivity {
 
         }
         return true;
+    }
+
+    private void resetShipColors(){
+        for (int j = 0; j < ships.length; j++) {
+            String ship = "@drawable/";
+            switch (j) {
+                case 0: {
+                    ship += "two_ship";
+                    break;
+                }
+                case 1: {
+                    ship += "three_ship";
+                    break;
+                }
+                case 2: {
+                    ship += "four_ship";
+                    break;
+                }
+                case 3: {
+                    ship += "five_ship";
+                    break;
+                }
+            }
+            int imageResource = getResources().getIdentifier(ship, null, getPackageName());
+            Drawable res = getResources().getDrawable(imageResource);
+            ships[j].setImageDrawable(res);
+        }
     }
 
 }
