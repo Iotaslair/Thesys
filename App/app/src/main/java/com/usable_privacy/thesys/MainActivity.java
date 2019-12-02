@@ -139,12 +139,7 @@ public class MainActivity extends AppCompatActivity {
                         String start = "@drawable/";
                         String end = "@drawable/";
 
-                        //Check ships doesn't go out of bounds
-                        if (!errorCheck(finalI, 2 + selectedShip)) {
-                            Toast.makeText(getApplicationContext(), "You can't place a ship there", Toast.LENGTH_LONG).show();
-                            return false;
-                        }
-
+                        //sets up the stings for the start and end of the ship
                         switch (direction) {
                             case 0: {
                                 start += "end_up";
@@ -172,7 +167,14 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
 
-                        //place starter image
+                        //Check ships doesn't go out of bounds
+                        if (!isShipPlacementValid(finalI, 2 + selectedShip)) {
+                            Toast.makeText(getApplicationContext(), "You can't place a ship there", Toast.LENGTH_LONG).show();
+                            return false;
+                        }
+
+
+                        //place start of ship image
                         {
                             ImageView temp = new ImageView(getApplicationContext());
                             int imageResource = getResources().getIdentifier(start, null, getPackageName());
@@ -181,12 +183,13 @@ public class MainActivity extends AppCompatActivity {
                             board[finalI].addView(temp);
                         }
 
+                        //draws middle pieces
                         int offset = offset(finalI);
-
                         int leftToDraw = selectedShip;
                         int nowToDraw = drawMiddlePieces(offset, leftToDraw);
 
-                        //place ending Image
+
+                        //places ending piece of the ship
                         {
                             ImageView temp = new ImageView(getApplicationContext());
                             int imageResource = getResources().getIdentifier(end, null, getPackageName());
@@ -195,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
                             board[nowToDraw].addView(temp);
                         }
 
+                        //sets variables to invalid states
                         selectedShip = -1;
                         shipSelected = false;
                         direction = -1;
@@ -277,7 +281,8 @@ public class MainActivity extends AppCompatActivity {
         return -1;
     }
 
-    private boolean errorCheck(int curSquare, int leftToDraw) {
+    //Is the spot the user wants to place their ship valid
+    private boolean isShipPlacementValid(int curSquare, int leftToDraw) {
         for (int i = 0; i < leftToDraw; i++) {
             switch (direction) {
                 case 0: { //up
