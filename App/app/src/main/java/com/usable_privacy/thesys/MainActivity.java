@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
 
     Button submit, reset;
@@ -46,26 +48,56 @@ public class MainActivity extends AppCompatActivity {
 //        board[3].getLayoutParams().height = 300;
 
 
+        for (int i = 0; i < 55; i++) {
+            final Integer finalI = i;
+            board[i].setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    ImageView temp = new ImageView(getApplicationContext());
 
-        board[3].setOnTouchListener(new View.OnTouchListener() {
+                    String uri = "@drawable/weird_ship";
+
+                    int imageResource = getResources().getIdentifier(uri, null, getPackageName());
+                    Drawable res = getResources().getDrawable(imageResource);
+                    temp.setImageDrawable(res);
+                    int[] location = new int[2];
+
+                    board[finalI].getLocationOnScreen(location);
+                    Log.wtf("ME TESTING", "Before " + Arrays.toString(location));
+
+
+                    board[finalI].addView(temp);
+//                    Log.d("WilliamButt", "" + board[3].getLayoutParams().width);
+                    {
+                        board[finalI].getLayoutParams().width = 2 * squareSize;
+                        board[finalI].getLayoutParams().height = squareSize;
+//                        board[finalI].setTranslationX(squareSize / 2);
+                    }
+
+//                    {
+//                        board[finalI].getLayoutParams().height = 2 * squareSize;
+//                        board[finalI].getLayoutParams().width = squareSize;
+//                        board[finalI].setRotation(90);
+//                        board[finalI].setTranslationY(squareSize / 2);
+//                    }
+
+
+                    board[finalI].getLocationOnScreen(location);
+                    Log.wtf("ME TESTING", "After " + Arrays.toString(location));
+
+                    return true;
+                }
+            });
+        }
+
+
+        reset = findViewById(R.id.ChessReset);
+        reset.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                ImageView temp = new ImageView(getApplicationContext());
-
-                String uri = "@drawable/two_ship";
-
-                int imageResource = getResources().getIdentifier(uri, null, getPackageName());
-                Drawable res = getResources().getDrawable(imageResource);
-                temp.setImageDrawable(res);
-
-                board[3].addView(temp);
-//                Log.d("WilliamButt", "" + board[3].getLayoutParams().width);
-                board[3].getLayoutParams().width = 2 * squareSize;
-
-                return true;
+            public void onClick(View view) {
+                reset();
             }
         });
-
 
     }
 
@@ -156,7 +188,12 @@ public class MainActivity extends AppCompatActivity {
 //        }
     }
 
-    public int getSquareSize(int value){
+    public int getSquareSize(int value) {
         return value * squareSize + (value * 2);
+    }
+
+    protected void reset() {
+        finish();
+        startActivity(getIntent());
     }
 }
