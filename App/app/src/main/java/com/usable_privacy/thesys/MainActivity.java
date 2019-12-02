@@ -5,23 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import java.util.Arrays;
-
 public class MainActivity extends AppCompatActivity {
 
     Button submit, reset;
     FrameLayout[] board;
-    Drawable[] pieces;
     //    ChessObject gameBoard;
-    boolean PieceSelected;
-    int SelectedPiece;
+    boolean pieceSelected;
+    int selectedPiece;
     String PassedPiece;
     ImageView[] selectablePieces;
     final int squareSize = 135;
@@ -53,42 +49,54 @@ public class MainActivity extends AppCompatActivity {
             board[i].setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
-                    ImageView temp = new ImageView(getApplicationContext());
+                    if (pieceSelected) {
+//                        ImageView temp = new ImageView(getApplicationContext());
+//
+//                        String uri = "@drawable/weird_ship";
+//
+//                        int imageResource = getResources().getIdentifier(uri, null, getPackageName());
+//                        Drawable res = getResources().getDrawable(imageResource);
+//                        temp.setImageDrawable(res);
+//                        board[finalI].addView(temp);
 
-                    String uri = "@drawable/weird_ship";
+                        ImageView temp = new ImageView(getApplicationContext());
 
-                    int imageResource = getResources().getIdentifier(uri, null, getPackageName());
-                    Drawable res = getResources().getDrawable(imageResource);
-                    temp.setImageDrawable(res);
-                    int[] location = new int[2];
+                        String uri = "@drawable/end_right";
 
-                    board[finalI].getLocationOnScreen(location);
-                    Log.wtf("ME TESTING", "Before " + Arrays.toString(location));
+                        int imageResource = getResources().getIdentifier(uri, null, getPackageName());
+                        Drawable res = getResources().getDrawable(imageResource);
+                        temp.setImageDrawable(res);
+                        board[finalI].addView(temp);
+
+                        int leftToDraw = selectedPiece;
 
 
-                    board[finalI].addView(temp);
-//                    Log.d("WilliamButt", "" + board[3].getLayoutParams().width);
-                    {
-                        board[finalI].getLayoutParams().width = 2 * squareSize;
-                        board[finalI].getLayoutParams().height = squareSize;
-//                        board[finalI].setTranslationX(squareSize / 2);
+                        int nowToDraw = drawMiddlePieces(finalI + 1, leftToDraw);
+
+
+                        temp = new ImageView(getApplicationContext());
+
+                        uri = "@drawable/end_left";
+
+                        imageResource = getResources().getIdentifier(uri, null, getPackageName());
+                        res = getResources().getDrawable(imageResource);
+                        temp.setImageDrawable(res);
+
+                        board[nowToDraw].addView(temp);
+
+
+                        selectedPiece = -1;
+                        pieceSelected = false;
+                        return true;
                     }
 
-//                    {
-//                        board[finalI].getLayoutParams().height = 2 * squareSize;
-//                        board[finalI].getLayoutParams().width = squareSize;
-//                        board[finalI].setRotation(90);
-//                        board[finalI].setTranslationY(squareSize / 2);
-//                    }
-
-
-                    board[finalI].getLocationOnScreen(location);
-                    Log.wtf("ME TESTING", "After " + Arrays.toString(location));
-
-                    return true;
+                    return false;
                 }
             });
         }
+
+
+        setupPieces();
 
 
         reset = findViewById(R.id.ChessReset);
@@ -103,9 +111,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void buildBoard() {
-        board = new FrameLayout[64];
-        selectablePieces = new ImageView[12];
-        pieces = new Drawable[12];
+        board = new FrameLayout[56];
+        selectablePieces = new ImageView[4];
         board[0] = findViewById(R.id.Chess1);
         board[1] = findViewById(R.id.Chess2);
         board[2] = findViewById(R.id.Chess3);
@@ -171,21 +178,10 @@ public class MainActivity extends AppCompatActivity {
 //        board[62] = findViewById(R.id.Chess63);
 //        board[63] = findViewById(R.id.Chess64);
 
-//        selectablePieces[0] = findViewById(R.id.BlackPawn);
-//        selectablePieces[1] = findViewById(R.id.BlackBishop);
-//        selectablePieces[2] = findViewById(R.id.BlackKnight);
-//        selectablePieces[3] = findViewById(R.id.BlackRook);
-//        selectablePieces[4] = findViewById(R.id.BlackQueen);
-//        selectablePieces[5] = findViewById(R.id.BlackKing);
-//        selectablePieces[6] = findViewById(R.id.WhitePawn);
-//        selectablePieces[7] = findViewById(R.id.WhiteBishop);
-//        selectablePieces[8] = findViewById(R.id.WhiteKnight);
-//        selectablePieces[9] = findViewById(R.id.WhiteRook);
-//        selectablePieces[10] = findViewById(R.id.WhiteQueen);
-//        selectablePieces[11] = findViewById(R.id.WhiteKing);
-//        for (int i = 0; i < 12; i++) {
-//            pieces[i] = selectablePieces[i].getDrawable();
-//        }
+        selectablePieces[0] = findViewById(R.id.twoShip);
+        selectablePieces[1] = findViewById(R.id.threeShip);
+        selectablePieces[2] = findViewById(R.id.fourShip);
+        selectablePieces[3] = findViewById(R.id.fiveShip);
     }
 
     public int getSquareSize(int value) {
@@ -195,5 +191,34 @@ public class MainActivity extends AppCompatActivity {
     protected void reset() {
         finish();
         startActivity(getIntent());
+    }
+
+    private void setupPieces() {
+        for (int i = 0; i < 4; i++) {
+            final int finalI = i;
+            selectablePieces[i].setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    pieceSelected = true;
+                    selectedPiece = finalI;
+                    return false;
+                }
+            });
+        }
+    }
+
+    private int drawMiddlePieces(int curSquare, int leftToDraw) {
+        for (int i = 0; i < leftToDraw; i++) {
+            ImageView temp = new ImageView(getApplicationContext());
+
+            String uri = "@drawable/left_right";
+
+            int imageResource = getResources().getIdentifier(uri, null, getPackageName());
+            Drawable res = getResources().getDrawable(imageResource);
+            temp.setImageDrawable(res);
+            board[curSquare].addView(temp);
+            curSquare++;
+        }
+        return curSquare;
     }
 }
