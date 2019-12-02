@@ -5,25 +5,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     Button submit, reset;
     FrameLayout[] board;
     //    ChessObject gameBoard;
-    boolean pieceSelected;
-    int selectedPiece;
-    String PassedPiece;
-    ImageView[] selectablePieces;
+    boolean shipSelected;
+    int selectedShip;
+    ImageView[] ships;
     ImageView[] arrows;
-    final int squareSize = 135;
-    final int lineSize = 2;
     int direction;
 
     @SuppressLint("ClickableViewAccessibility")
@@ -33,26 +30,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         buildBoard();
 
-
-//        ImageView temp = new ImageView(getApplicationContext());
-//
-//        String uri = "@drawable/arrows";
-//
-//        int imageResource = getResources().getIdentifier(uri, null, getPackageName());
-//        Drawable res = getResources().getDrawable(imageResource);
-//        temp.setImageDrawable(res);
-
-//        board[3].addView(temp);
-//        board[3].getLayoutParams().width = 300;
-//        board[3].getLayoutParams().height = 300;
-
-
-        for (int i = 0; i < 55; i++) {
+        for (int i = 0; i < board.length; i++) {
             final Integer finalI = i;
             board[i].setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
-                    if (pieceSelected) {
+                    if (shipSelected) {
                         String start = "@drawable/";
                         String end = "@drawable/";
 
@@ -78,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             }
                             default: {
-                                Log.wtf("WilliamButt", "Failed to get Direction " + direction);
-                                break;
+                                Toast.makeText(getApplicationContext(), "You didn't select a direction", Toast.LENGTH_LONG).show();
+                                return false;
                             }
                         }
 
@@ -94,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
                         int offset = offset(finalI);
 
-                        int leftToDraw = selectedPiece;
+                        int leftToDraw = selectedShip;
                         int nowToDraw = drawMiddlePieces(offset, leftToDraw);
 
                         //place ending Image
@@ -106,8 +89,9 @@ public class MainActivity extends AppCompatActivity {
                             board[nowToDraw].addView(temp);
                         }
 
-                        selectedPiece = -1;
-                        pieceSelected = false;
+                        selectedShip = -1;
+                        shipSelected = false;
+                        direction = -1;
                         return true;
                     }
 
@@ -117,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        setupPieces();
+        setupShips();
         setupArrows();
 
         reset = findViewById(R.id.ChessReset);
@@ -131,9 +115,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    //Assigns the board's imageViews to the board array and the same for the ships and arrows
     private void buildBoard() {
         board = new FrameLayout[56];
-        selectablePieces = new ImageView[4];
+        ships = new ImageView[4];
         arrows = new ImageView[4];
         board[0] = findViewById(R.id.Chess1);
         board[1] = findViewById(R.id.Chess2);
@@ -191,19 +176,11 @@ public class MainActivity extends AppCompatActivity {
         board[53] = findViewById(R.id.Chess54);
         board[54] = findViewById(R.id.Chess55);
         board[55] = findViewById(R.id.Chess56);
-//        board[56] = findViewById(R.id.Chess57);
-//        board[57] = findViewById(R.id.Chess58);
-//        board[58] = findViewById(R.id.Chess59);
-//        board[59] = findViewById(R.id.Chess60);
-//        board[60] = findViewById(R.id.Chess61);
-//        board[61] = findViewById(R.id.Chess62);
-//        board[62] = findViewById(R.id.Chess63);
-//        board[63] = findViewById(R.id.Chess64);
 
-        selectablePieces[0] = findViewById(R.id.twoShip);
-        selectablePieces[1] = findViewById(R.id.threeShip);
-        selectablePieces[2] = findViewById(R.id.fourShip);
-        selectablePieces[3] = findViewById(R.id.fiveShip);
+        ships[0] = findViewById(R.id.twoShip);
+        ships[1] = findViewById(R.id.threeShip);
+        ships[2] = findViewById(R.id.fourShip);
+        ships[3] = findViewById(R.id.fiveShip);
 
         arrows[0] = findViewById(R.id.upArrow);
         arrows[1] = findViewById(R.id.rightArrow);
@@ -211,26 +188,29 @@ public class MainActivity extends AppCompatActivity {
         arrows[3] = findViewById(R.id.leftArrow);
 
     }
-    
+
+    //Resets the app
     protected void reset() {
         finish();
         startActivity(getIntent());
     }
 
-    private void setupPieces() {
-        for (int i = 0; i < 4; i++) {
+    //Sets up the onTouchListeners for the ships array
+    private void setupShips() {
+        for (int i = 0; i < ships.length; i++) {
             final int finalI = i;
-            selectablePieces[i].setOnTouchListener(new View.OnTouchListener() {
+            ships[i].setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
-                    pieceSelected = true;
-                    selectedPiece = finalI;
+                    shipSelected = true;
+                    selectedShip = finalI;
                     return true;
                 }
             });
         }
     }
 
+    //Method that draws the middle squares in the correct orientation
     private int drawMiddlePieces(int curSquare, int leftToDraw) {
         for (int i = 0; i < leftToDraw; i++) {
             ImageView temp = new ImageView(getApplicationContext());
@@ -250,8 +230,9 @@ public class MainActivity extends AppCompatActivity {
         return curSquare;
     }
 
+    //Sets up the onTouchListeners for the arrows array
     private void setupArrows() {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < arrows.length; i++) {
             final int finalI = i;
             arrows[i].setOnTouchListener(new View.OnTouchListener() {
                 @Override
@@ -263,6 +244,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Method that returns the next square to be drawn on
     private int offset(int curSquare) {
         switch (direction) {
             case 0:
