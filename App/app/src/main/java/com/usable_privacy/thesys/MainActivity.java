@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -20,8 +21,10 @@ public class MainActivity extends AppCompatActivity {
     int selectedPiece;
     String PassedPiece;
     ImageView[] selectablePieces;
+    ImageView[] arrows;
     final int squareSize = 135;
     final int lineSize = 2;
+    int direction;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -50,40 +53,58 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     if (pieceSelected) {
-//                        ImageView temp = new ImageView(getApplicationContext());
-//
-//                        String uri = "@drawable/weird_ship";
-//
-//                        int imageResource = getResources().getIdentifier(uri, null, getPackageName());
-//                        Drawable res = getResources().getDrawable(imageResource);
-//                        temp.setImageDrawable(res);
-//                        board[finalI].addView(temp);
+                        String start = "@drawable/";
+                        String end = "@drawable/";
 
-                        ImageView temp = new ImageView(getApplicationContext());
+                        switch (direction) {
+                            case 0: {
+                                start += "end_up";
+                                end += "end_down";
+                                break;
+                            }
+                            case 1: {
+                                start += "end_right";
+                                end += "end_left";
+                                break;
+                            }
+                            case 2: {
+                                start += "end_down";
+                                end += "end_up";
+                                break;
+                            }
+                            case 3: {
+                                start += "end_left";
+                                end += "end_right";
+                                break;
+                            }
+                            default: {
+                                Log.wtf("WilliamButt", "Failed to get Direction " + direction);
+                                break;
+                            }
+                        }
 
-                        String uri = "@drawable/end_right";
+                        //place starter image
+                        {
+                            ImageView temp = new ImageView(getApplicationContext());
+                            int imageResource = getResources().getIdentifier(start, null, getPackageName());
+                            Drawable res = getResources().getDrawable(imageResource);
+                            temp.setImageDrawable(res);
+                            board[finalI].addView(temp);
+                        }
 
-                        int imageResource = getResources().getIdentifier(uri, null, getPackageName());
-                        Drawable res = getResources().getDrawable(imageResource);
-                        temp.setImageDrawable(res);
-                        board[finalI].addView(temp);
+                        int offset = offset(finalI);
 
                         int leftToDraw = selectedPiece;
+                        int nowToDraw = drawMiddlePieces(offset, leftToDraw);
 
-
-                        int nowToDraw = drawMiddlePieces(finalI + 1, leftToDraw);
-
-
-                        temp = new ImageView(getApplicationContext());
-
-                        uri = "@drawable/end_left";
-
-                        imageResource = getResources().getIdentifier(uri, null, getPackageName());
-                        res = getResources().getDrawable(imageResource);
-                        temp.setImageDrawable(res);
-
-                        board[nowToDraw].addView(temp);
-
+                        //place ending Image
+                        {
+                            ImageView temp = new ImageView(getApplicationContext());
+                            int imageResource = getResources().getIdentifier(end, null, getPackageName());
+                            Drawable res = getResources().getDrawable(imageResource);
+                            temp.setImageDrawable(res);
+                            board[nowToDraw].addView(temp);
+                        }
 
                         selectedPiece = -1;
                         pieceSelected = false;
@@ -97,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         setupPieces();
-
+        setupArrows();
 
         reset = findViewById(R.id.ChessReset);
         reset.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
     private void buildBoard() {
         board = new FrameLayout[56];
         selectablePieces = new ImageView[4];
+        arrows = new ImageView[4];
         board[0] = findViewById(R.id.Chess1);
         board[1] = findViewById(R.id.Chess2);
         board[2] = findViewById(R.id.Chess3);
@@ -182,12 +204,14 @@ public class MainActivity extends AppCompatActivity {
         selectablePieces[1] = findViewById(R.id.threeShip);
         selectablePieces[2] = findViewById(R.id.fourShip);
         selectablePieces[3] = findViewById(R.id.fiveShip);
-    }
 
-    public int getSquareSize(int value) {
-        return value * squareSize + (value * 2);
-    }
+        arrows[0] = findViewById(R.id.upArrow);
+        arrows[1] = findViewById(R.id.rightArrow);
+        arrows[2] = findViewById(R.id.downArrow);
+        arrows[3] = findViewById(R.id.leftArrow);
 
+    }
+    
     protected void reset() {
         finish();
         startActivity(getIntent());
@@ -201,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     pieceSelected = true;
                     selectedPiece = finalI;
-                    return false;
+                    return true;
                 }
             });
         }
@@ -210,15 +234,46 @@ public class MainActivity extends AppCompatActivity {
     private int drawMiddlePieces(int curSquare, int leftToDraw) {
         for (int i = 0; i < leftToDraw; i++) {
             ImageView temp = new ImageView(getApplicationContext());
-
-            String uri = "@drawable/left_right";
+            String uri;
+            if (direction == 1 || direction == 3) {
+                uri = "@drawable/left_right";
+            } else {
+                uri = "@drawable/up_down";
+            }
 
             int imageResource = getResources().getIdentifier(uri, null, getPackageName());
             Drawable res = getResources().getDrawable(imageResource);
             temp.setImageDrawable(res);
             board[curSquare].addView(temp);
-            curSquare++;
+            curSquare = offset(curSquare);
         }
         return curSquare;
+    }
+
+    private void setupArrows() {
+        for (int i = 0; i < 4; i++) {
+            final int finalI = i;
+            arrows[i].setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    direction = finalI;
+                    return true;
+                }
+            });
+        }
+    }
+
+    private int offset(int curSquare) {
+        switch (direction) {
+            case 0:
+                return curSquare - 8;
+            case 1:
+                return curSquare + 1;
+            case 2:
+                return curSquare + 8;
+            case 3:
+                return curSquare - 1;
+        }
+        return -1;
     }
 }
