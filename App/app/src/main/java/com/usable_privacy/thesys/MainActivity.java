@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     int selectedShip;
     ImageView[] ships;
     ImageView[] arrows;
-    int direction;
+    int direction = -1;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
 
     //Assigns the board's imageViews to the board array
     private void buildBoard() {
@@ -110,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Assigns the ships's imageViews to the ships array
-    private void buildShips(){
+    private void buildShips() {
         ships = new ImageView[4];
 
         ships[0] = findViewById(R.id.twoShip);
@@ -120,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Assigns the arrow's imageViews to the arrows array
-    private void buildArrows(){
+    private void buildArrows() {
         arrows = new ImageView[4];
 
         arrows[0] = findViewById(R.id.upArrow);
@@ -130,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //sets up the onTouchListeners for the board
-    private void setupBoard(){
+    private void setupBoard() {
         for (int i = 0; i < board.length; i++) {
             final Integer finalI = i;
             board[i].setOnTouchListener(new View.OnTouchListener() {
@@ -139,6 +138,12 @@ public class MainActivity extends AppCompatActivity {
                     if (shipSelected) {
                         String start = "@drawable/";
                         String end = "@drawable/";
+
+                        //Check ships doesn't go out of bounds
+                        if (!errorCheck(finalI, 2 + selectedShip)) {
+                            Toast.makeText(getApplicationContext(), "You can't place a ship there", Toast.LENGTH_LONG).show();
+                            return false;
+                        }
 
                         switch (direction) {
                             case 0: {
@@ -195,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
                         direction = -1;
                         return true;
                     }
-
+//                    Toast.makeText(getApplicationContext(), "You didn't select a ship", Toast.LENGTH_LONG).show();
                     return false;
                 }
             });
@@ -271,4 +276,44 @@ public class MainActivity extends AppCompatActivity {
         }
         return -1;
     }
+
+    private boolean errorCheck(int curSquare, int leftToDraw) {
+        for (int i = 0; i < leftToDraw; i++) {
+            switch (direction) {
+                case 0: { //up
+                    if (curSquare < 0) {
+                        return false;
+                    }
+                    curSquare = offset(curSquare);
+                    break;
+                }
+                case 1: { //right
+                    int prevRemainder = curSquare % 8;
+                    curSquare = offset(curSquare);
+                    if (prevRemainder == 7 && curSquare % 8 == 0 && (i < leftToDraw - 1)) {
+                        return false;
+                    }
+                    break;
+                }
+                case 2: { //down
+                    if (curSquare > 56) {
+                        return false;
+                    }
+                    curSquare = offset(curSquare);
+                    break;
+                }
+                case 3: { //left
+                    int prevRemainder = curSquare % 8;
+                    curSquare = offset(curSquare);
+                    if (prevRemainder == 0 && curSquare % 8 == 7 && (i < leftToDraw - 1)) {
+                        return false;
+                    }
+                    break;
+                }
+            }
+
+        }
+        return true;
+    }
+
 }
