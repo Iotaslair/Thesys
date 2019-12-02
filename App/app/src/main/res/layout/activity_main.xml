@@ -1176,24 +1176,24 @@
     <!-- Buttons -->
 
     <Button
-        android:id="@+id/ChessSubmit"
+        android:id="@+id/Submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ChessReset"
+        app:layout_constraintEnd_toStartOf="@+id/Undo"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/ChessReset"
+        android:id="@+id/Undo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reset"
-        app:layout_constraintBottom_toBottomOf="@+id/ChessSubmit"
+        android:text="Undo"
+        app:layout_constraintBottom_toBottomOf="@+id/Submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/ChessSubmit" />
+        app:layout_constraintStart_toEndOf="@+id/Submit" />
 
     <ImageView
         android:id="@+id/upArrow"

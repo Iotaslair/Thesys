@@ -3,26 +3,32 @@ package com.usable_privacy.thesys;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Stack;
+
 public class MainActivity extends AppCompatActivity {
 
-    Button submit, reset;
+    Button submit, undo;
     FrameLayout[] board;
     boolean shipSelected;
     int selectedShip;
     ImageView[] ships;
     ImageView[] arrows;
     int direction = -1;
+    Stack<ArrayList<ImageView>> placedShips = new Stack<>();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -38,11 +44,11 @@ public class MainActivity extends AppCompatActivity {
         setupShips();
         setupArrows();
 
-        reset = findViewById(R.id.ChessReset);
-        reset.setOnClickListener(new View.OnClickListener() {
+        undo = findViewById(R.id.Undo);
+        undo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                reset();
+                undoPlacement();
             }
         });
 
@@ -130,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //sets up the onTouchListeners for the board
+    @SuppressLint("ClickableViewAccessibility")
     private void setupBoard() {
         for (int i = 0; i < board.length; i++) {
             final Integer finalI = i;
@@ -176,6 +183,8 @@ public class MainActivity extends AppCompatActivity {
                                 return false;
                             }
 
+                            ArrayList<ImageView> placedSquares = new ArrayList<>();
+
                             //place start of ship image
                             {
                                 ImageView temp = new ImageView(getApplicationContext());
@@ -183,13 +192,13 @@ public class MainActivity extends AppCompatActivity {
                                 Drawable res = getResources().getDrawable(imageResource);
                                 temp.setImageDrawable(res);
                                 board[finalI].addView(temp);
+                                placedSquares.add(temp);
                             }
 
                             //draws middle pieces
                             int offset = offset(finalI);
                             int leftToDraw = selectedShip;
-                            int nowToDraw = drawMiddlePieces(offset, leftToDraw);
-
+                            int nowToDraw = drawMiddlePieces(offset, leftToDraw, placedSquares);
 
                             //places ending piece of the ship
                             {
@@ -198,7 +207,10 @@ public class MainActivity extends AppCompatActivity {
                                 Drawable res = getResources().getDrawable(imageResource);
                                 temp.setImageDrawable(res);
                                 board[nowToDraw].addView(temp);
+                                placedSquares.add(temp);
                             }
+
+                            placedShips.add(placedSquares);
 
                             //sets variables to invalid states
                             selectedShip = -1;
@@ -216,12 +228,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-    }
-
-    //Resets the app
-    protected void reset() {
-        finish();
-        startActivity(getIntent());
     }
 
     //Sets up the onTouchListeners for the ships array
@@ -271,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Method that draws the middle squares in the correct orientation
-    private int drawMiddlePieces(int curSquare, int leftToDraw) {
+    private int drawMiddlePieces(int curSquare, int leftToDraw, ArrayList<ImageView> placedSquares) {
         for (int i = 0; i < leftToDraw; i++) {
             ImageView temp = new ImageView(getApplicationContext());
             String uri;
@@ -285,6 +291,7 @@ public class MainActivity extends AppCompatActivity {
             Drawable res = getResources().getDrawable(imageResource);
             temp.setImageDrawable(res);
             board[curSquare].addView(temp);
+            placedSquares.add(temp);
             curSquare = offset(curSquare);
         }
         return curSquare;
@@ -359,7 +366,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void resetShipColors(){
+    private void resetShipColors() {
         for (int j = 0; j < ships.length; j++) {
             String ship = "@drawable/";
             switch (j) {
@@ -384,6 +391,20 @@ public class MainActivity extends AppCompatActivity {
             Drawable res = getResources().getDrawable(imageResource);
             ships[j].setImageDrawable(res);
         }
+    }
+
+    private void undoPlacement() {
+        try {
+            ArrayList<ImageView> popped = placedShips.pop();
+            Log.wtf("ME TESTING", "" + board[0].getChildCount());
+            for (ImageView x : popped) {
+                ((ViewGroup) x.getParent()).removeView(x);
+            }
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Can't remove when the board is empty", Toast.LENGTH_LONG).show();
+        }
+
+
     }
 
 }
