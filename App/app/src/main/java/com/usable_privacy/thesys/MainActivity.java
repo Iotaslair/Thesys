@@ -135,76 +135,82 @@ public class MainActivity extends AppCompatActivity {
             board[i].setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
-                    if (shipSelected) {
-                        String start = "@drawable/";
-                        String end = "@drawable/";
+                    if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
 
-                        //sets up the stings for the start and end of the ship
-                        switch (direction) {
-                            case 0: {
-                                start += "end_up";
-                                end += "end_down";
-                                break;
+                        if (shipSelected) {
+                            String start = "@drawable/";
+                            String end = "@drawable/";
+
+                            //sets up the stings for the start and end of the ship
+                            switch (direction) {
+                                case 0: {
+                                    start += "end_up";
+                                    end += "end_down";
+                                    break;
+                                }
+                                case 1: {
+                                    start += "end_right";
+                                    end += "end_left";
+                                    break;
+                                }
+                                case 2: {
+                                    start += "end_down";
+                                    end += "end_up";
+                                    break;
+                                }
+                                case 3: {
+                                    start += "end_left";
+                                    end += "end_right";
+                                    break;
+                                }
+                                default: {
+                                    Toast.makeText(getApplicationContext(), "You didn't select a direction", Toast.LENGTH_LONG).show();
+                                    return false;
+                                }
                             }
-                            case 1: {
-                                start += "end_right";
-                                end += "end_left";
-                                break;
-                            }
-                            case 2: {
-                                start += "end_down";
-                                end += "end_up";
-                                break;
-                            }
-                            case 3: {
-                                start += "end_left";
-                                end += "end_right";
-                                break;
-                            }
-                            default: {
-                                Toast.makeText(getApplicationContext(), "You didn't select a direction", Toast.LENGTH_LONG).show();
+
+                            //Check ships doesn't go out of bounds
+                            if (!isShipPlacementValid(finalI, 2 + selectedShip)) {
+                                Toast.makeText(getApplicationContext(), "You can't place a ship there", Toast.LENGTH_LONG).show();
                                 return false;
                             }
+
+
+                            //place start of ship image
+                            {
+                                ImageView temp = new ImageView(getApplicationContext());
+                                int imageResource = getResources().getIdentifier(start, null, getPackageName());
+                                Drawable res = getResources().getDrawable(imageResource);
+                                temp.setImageDrawable(res);
+                                board[finalI].addView(temp);
+                            }
+
+                            //draws middle pieces
+                            int offset = offset(finalI);
+                            int leftToDraw = selectedShip;
+                            int nowToDraw = drawMiddlePieces(offset, leftToDraw);
+
+
+                            //places ending piece of the ship
+                            {
+                                ImageView temp = new ImageView(getApplicationContext());
+                                int imageResource = getResources().getIdentifier(end, null, getPackageName());
+                                Drawable res = getResources().getDrawable(imageResource);
+                                temp.setImageDrawable(res);
+                                board[nowToDraw].addView(temp);
+                            }
+
+                            //sets variables to invalid states
+                            selectedShip = -1;
+                            shipSelected = false;
+                            direction = -1;
+                            return true;
+                        } else {
+                            Toast.makeText(getApplicationContext(), "You didn't select a ship", Toast.LENGTH_LONG).show();
+
                         }
-
-                        //Check ships doesn't go out of bounds
-                        if (!isShipPlacementValid(finalI, 2 + selectedShip)) {
-                            Toast.makeText(getApplicationContext(), "You can't place a ship there", Toast.LENGTH_LONG).show();
-                            return false;
-                        }
-
-
-                        //place start of ship image
-                        {
-                            ImageView temp = new ImageView(getApplicationContext());
-                            int imageResource = getResources().getIdentifier(start, null, getPackageName());
-                            Drawable res = getResources().getDrawable(imageResource);
-                            temp.setImageDrawable(res);
-                            board[finalI].addView(temp);
-                        }
-
-                        //draws middle pieces
-                        int offset = offset(finalI);
-                        int leftToDraw = selectedShip;
-                        int nowToDraw = drawMiddlePieces(offset, leftToDraw);
-
-
-                        //places ending piece of the ship
-                        {
-                            ImageView temp = new ImageView(getApplicationContext());
-                            int imageResource = getResources().getIdentifier(end, null, getPackageName());
-                            Drawable res = getResources().getDrawable(imageResource);
-                            temp.setImageDrawable(res);
-                            board[nowToDraw].addView(temp);
-                        }
-
-                        //sets variables to invalid states
-                        selectedShip = -1;
-                        shipSelected = false;
-                        direction = -1;
-                        return true;
                     }
-//                    Toast.makeText(getApplicationContext(), "You didn't select a ship", Toast.LENGTH_LONG).show();
+
                     return false;
                 }
             });
