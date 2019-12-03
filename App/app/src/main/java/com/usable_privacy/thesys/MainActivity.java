@@ -216,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
                             shipSelected = false;
                             direction = -1;
                             resetShipColors();
+                            resetArrowColors();
                             return true;
                         } else {
                             Toast.makeText(getApplicationContext(), "You didn't select a ship", Toast.LENGTH_LONG).show();
@@ -297,12 +298,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Sets up the onTouchListeners for the arrows array
+    @SuppressLint("ClickableViewAccessibility")
     private void setupArrows() {
         for (int i = 0; i < arrows.length; i++) {
             final int finalI = i;
             arrows[i].setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
+                    ImageView imageView = (ImageView) view;
+                    if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                        resetArrowColors();
+
+                        String arrow = "@drawable/";
+                        switch (finalI) {
+                            case 0: {
+                                arrow += "up_arrow_picked";
+                                break;
+                            }
+                            case 1: {
+                                arrow += "right_arrow_picked";
+                                break;
+                            }
+                            case 2: {
+                                arrow += "down_arrow_picked";
+                                break;
+                            }
+                            case 3: {
+                                arrow += "left_arrow_picked";
+                                break;
+                            }
+                        }
+
+                        int imageResource = getResources().getIdentifier(arrow, null, getPackageName());
+                        Drawable res = getResources().getDrawable(imageResource);
+                        imageView.setImageDrawable(res);
+                    }
                     direction = finalI;
                     return true;
                 }
@@ -389,6 +419,33 @@ public class MainActivity extends AppCompatActivity {
             int imageResource = getResources().getIdentifier(ship, null, getPackageName());
             Drawable res = getResources().getDrawable(imageResource);
             ships[j].setImageDrawable(res);
+        }
+    }
+
+    private void resetArrowColors() {
+        for (int j = 0; j < arrows.length; j++) {
+            String arrow = "@drawable/";
+            switch (j) {
+                case 0: {
+                    arrow += "up_arrow";
+                    break;
+                }
+                case 1: {
+                    arrow += "right_arrow";
+                    break;
+                }
+                case 2: {
+                    arrow += "down_arrow";
+                    break;
+                }
+                case 3: {
+                    arrow += "left_arrow";
+                    break;
+                }
+            }
+            int imageResource = getResources().getIdentifier(arrow, null, getPackageName());
+            Drawable res = getResources().getDrawable(imageResource);
+            arrows[j].setImageDrawable(res);
         }
     }
 
