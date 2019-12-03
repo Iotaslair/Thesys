@@ -144,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-
                         if (shipSelected) {
                             String start = "@drawable/";
                             String end = "@drawable/";
@@ -396,7 +395,6 @@ public class MainActivity extends AppCompatActivity {
     private void undoPlacement() {
         try {
             ArrayList<ImageView> popped = placedShips.pop();
-            Log.wtf("ME TESTING", "" + board[0].getChildCount());
             for (ImageView x : popped) {
                 ((ViewGroup) x.getParent()).removeView(x);
             }
