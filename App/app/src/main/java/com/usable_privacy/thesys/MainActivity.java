@@ -382,6 +382,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case 3: { //left
+                    if(curSquare < 0){
+                        return false;
+                    }
                     int prevRemainder = curSquare % 8;
                     curSquare = offset(curSquare);
                     if (prevRemainder == 0 && curSquare % 8 == 7 && (i < leftToDraw - 1)) {
