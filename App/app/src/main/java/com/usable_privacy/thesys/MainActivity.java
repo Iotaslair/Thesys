@@ -375,7 +375,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case 2: { //down
-                    if (curSquare > 56) {
+                    if (curSquare > 55) {
                         return false;
                     }
                     curSquare = offset(curSquare);
